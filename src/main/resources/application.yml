@@ -1,9 +1,14 @@
 spring:
   application:
-    name: java-intern-task-demo
+    name: project-collaboration-platform
 
 server:
   port: 8080
+
+app:
+  jwt:
+    secret: portfolio-demo-secret-change-me
+    expire-minutes: 240
 
 springdoc:
   swagger-ui:

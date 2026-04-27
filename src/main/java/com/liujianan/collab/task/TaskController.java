@@ -1,8 +1,7 @@
-package com.liujianan.taskdemo.task;
+package com.liujianan.collab.task;
 
-import com.liujianan.taskdemo.common.ApiResponse;
+import com.liujianan.collab.common.ApiResponse;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,23 +23,20 @@ public class TaskController {
     }
 
     @GetMapping
-    public ApiResponse<List<Task>> listTasks() {
-        return ApiResponse.ok(taskService.listTasks());
+    public ApiResponse<List<TaskItem>> search(@RequestParam(required = false) Long projectId,
+                                              @RequestParam(required = false) Long assigneeId,
+                                              @RequestParam(required = false) TaskStatus status,
+                                              @RequestParam(required = false) String keyword) {
+        return ApiResponse.ok(taskService.search(new TaskQuery(projectId, assigneeId, status, keyword)));
     }
 
     @PostMapping
-    public ApiResponse<Task> createTask(@Valid @RequestBody CreateTaskRequest request) {
+    public ApiResponse<TaskItem> createTask(@Valid @RequestBody CreateTaskRequest request) {
         return ApiResponse.ok(taskService.createTask(request));
     }
 
     @PatchMapping("/{id}/status")
-    public ApiResponse<Task> updateStatus(@PathVariable Long id, @RequestParam TaskStatus status) {
+    public ApiResponse<TaskItem> updateStatus(@PathVariable Long id, @RequestParam TaskStatus status) {
         return ApiResponse.ok(taskService.updateStatus(id, status));
-    }
-
-    @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
-        return ApiResponse.ok(null);
     }
 }

@@ -1,6 +1,6 @@
-package com.liujianan.taskdemo.common;
+package com.liujianan.collab.common;
 
-import com.liujianan.taskdemo.task.TaskNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,15 +21,21 @@ public class GlobalExceptionHandler {
         return ApiResponse.fail(message);
     }
 
-    @ExceptionHandler(TaskNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiResponse<Void> handleTaskNotFound(TaskNotFoundException exception) {
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<Void> handleBusiness(BusinessException exception) {
         return ApiResponse.fail(exception.getMessage());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResponse<Void> handleIllegalArgument(IllegalArgumentException exception) {
+    @ExceptionHandler(SecurityException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResponse<Void> handleSecurity(SecurityException exception) {
         return ApiResponse.fail(exception.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiResponse<Void> handleUnknown(Exception exception, HttpServletRequest request) {
+        return ApiResponse.fail("request failed: " + request.getRequestURI());
     }
 }

@@ -1,0 +1,19 @@
+### Demo accounts
+GET http://localhost:8080/api/auth/demo-accounts
+
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### Dashboard
+GET http://localhost:8080/api/dashboard/summary
+Authorization: Bearer {{token}}
+
+### Search tasks
+GET http://localhost:8080/api/tasks?projectId=1&status=REVIEW
+Authorization: Bearer {{token}}

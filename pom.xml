@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.liujianan</groupId>
-    <artifactId>java-intern-task-demo</artifactId>
+    <artifactId>project-collaboration-platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>java-intern-task-demo</name>
-    <description>A small Spring Boot task management demo for Java backend internship applications.</description>
+    <name>project-collaboration-platform</name>
+    <description>Project collaboration backend platform for Java internship portfolio.</description>
 
     <properties>
         <java.version>17</java.version>
